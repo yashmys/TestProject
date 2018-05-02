@@ -1,7 +1,9 @@
 #  Spring Board   DPLYR Exercise - Refine excel 
-#install.packages("tidyr")
+#install.packages("random")
 library(dplyr)
 library(tidyr)
+library(random)
+
 
 # load the refine data into dataframe 
 Refine <-  read.csv(file="C:\\Users\\Dhathri\\Desktop\\R\\refine_original.csv", header=TRUE, sep=",")
@@ -118,4 +120,29 @@ Refine
 
 Refine <-  unite(Refine,"full_address", c("address","city","country"), sep = ",")
 Refine
+
+# create binary columns 
+
+#sample(0:1,1,replace=T  )
+
+rfun <- function(x)
+{
+  return(  (sample(0:100,1) ) %%  2 )
+  
+}
+
+Refine$company_philips <- sapply(1,rfun)
+Refine$company_akzo <- sapply(1,rfun)
+Refine$company_van_houten <- sapply(1,rfun)
+Refine$company_unilever<- sapply(1,rfun)
+ 
+Refine$product_smartphone<- sapply(1,rfun)
+Refine$product_tv<- sapply(1,rfun)
+Refine$product_laptop<- sapply(1,rfun)
+Refine$product_tablet<- sapply(1,rfun)
+
+
+Refine
+
+write.csv(Refine, file = "C:\\Users\\Dhathri\\Desktop\\R\\refine_clean.csv")
 
